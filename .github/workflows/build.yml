@@ -1,0 +1,30 @@
+name: Build Workflow
+
+on:
+  workflow_dispatch:
+
+env:
+  name: aplicativos_fiscal
+
+jobs:
+  build-windows:
+    runs-on: windows-2019
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install requeriments
+        run: |
+          pip install -r requirements.txt
+      - name: Run Pyinstaller
+        run: |
+          pyinstaller ${{ env.name }}.spec
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.name }}
+          path: |
+            dist/${{ env.name }}

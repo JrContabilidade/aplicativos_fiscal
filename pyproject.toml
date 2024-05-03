@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "aplicativos-fiscal"
+version = "0.1.0"
+description = ""
+authors = ["Rodolfo Scarp <rodolfo@jrcontabiltr.com.br>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.12,<3.13"
+openpyxl = "^3.1.2"
+pyinstaller = "^6.6.0"
+pyside6 = "^6.7.0"
+firebirdsql = "^1.2.5"
+cryptography = "^42.0.5"
+loguru = "^0.7.2"
+pandas = "^2.2.2"
+
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.7.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
