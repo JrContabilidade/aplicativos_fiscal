@@ -2,6 +2,7 @@ from PySide6.QtWidgets import QMainWindow, QWidget
 from PySide6.QtCore import Qt
 from .main_ui import Ui_MainWindow
 from src.desktop.screens.configuracoes import QuestorDB
+from src.desktop.screens.impostos import CompLancFunrural
 
 
 class Main(QMainWindow):
@@ -14,6 +15,9 @@ class Main(QMainWindow):
 
         self.ui.act_banco_questor.triggered.connect(
             lambda: self.add_sub_window(QuestorDB(self))
+        )
+        self.ui.act_comp_lanc_funrural.triggered.connect(
+            lambda: self.add_sub_window(CompLancFunrural(self))
         )
 
     def add_sub_window(self, widget: QWidget):

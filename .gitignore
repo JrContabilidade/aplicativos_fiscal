@@ -11,3 +11,8 @@ dist/
 logs/
 dev/
 config.ini
+.vscode/
+.pytest_cache
+
+# Mkdocs
+site/

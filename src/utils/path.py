@@ -2,9 +2,11 @@ from pathlib import Path
 import sys
 import os
 
+from .checks import is_bundle
+
 
 def get_exec_dir():
-    if getattr(sys, "frozen", False) and hasattr(sys, "_MEIPASS"):
+    if is_bundle():
         return Path(sys.executable).parent
     else:
         return Path(os.getcwd())

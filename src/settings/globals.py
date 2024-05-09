@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from pathlib import Path
 from src.utils.path import get_exec_dir
 
 

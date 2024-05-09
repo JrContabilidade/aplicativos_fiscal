@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>944</width>
-    <height>623</height>
+    <width>837</width>
+    <height>744</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,13 @@
    <iconset resource="../../../../resources.qrc">
     <normaloff>:/icons/resources/jr.ico</normaloff>:/icons/resources/jr.ico</iconset>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <property name="spacing">
      <number>0</number>
@@ -36,6 +42,9 @@
     </property>
     <item>
      <widget class="QMdiArea" name="mdi_area">
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
       <property name="background">
        <brush brushstyle="NoBrush">
         <color alpha="255">
@@ -54,7 +63,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>944</width>
+     <width>837</width>
      <height>22</height>
     </rect>
    </property>
@@ -64,12 +73,30 @@
     </property>
     <addaction name="act_banco_questor"/>
    </widget>
+   <widget class="QMenu" name="menuImpostos">
+    <property name="title">
+     <string>Impostos</string>
+    </property>
+    <addaction name="act_comp_lanc_funrural"/>
+   </widget>
+   <widget class="QMenu" name="menuAjuda">
+    <property name="title">
+     <string>Ajuda</string>
+    </property>
+   </widget>
    <addaction name="mnu_configuracoes"/>
+   <addaction name="menuImpostos"/>
+   <addaction name="menuAjuda"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="act_banco_questor">
    <property name="text">
     <string>Banco Questor</string>
+   </property>
+  </action>
+  <action name="act_comp_lanc_funrural">
+   <property name="text">
+    <string>Comparar Lançamentos Funrural</string>
    </property>
   </action>
  </widget>

@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icons">
+    <file>resources/logojrnova-azul.png</file>
     <file>resources/jr.ico</file>
   </qresource>
 </RCC>

@@ -1,0 +1,1 @@
+from .comp_lanc_funrural import CompLancFunrural

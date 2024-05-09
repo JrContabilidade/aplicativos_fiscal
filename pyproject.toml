@@ -14,11 +14,26 @@ firebirdsql = "^1.2.5"
 cryptography = "^42.0.5"
 loguru = "^0.7.2"
 pandas = "^2.2.2"
+pydantic = "^2.7.1"
+validate-docbr = "^1.10.0"
+pyperclip = "^1.8.2"
 
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.7.0"
+pytest = "^8.2.0"
+pylint = "^3.1.0"
+taskipy = "^1.12.2"
+
+
+[tool.poetry.group.docs.dependencies]
+mkdocs = { extras = ["i18n"], version = "^1.6.0" }
+mkdocs-material = "^9.5.21"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.taskipy.tasks]
+test = "pytest -vv -x"
+docs = "mkdocs serve"
