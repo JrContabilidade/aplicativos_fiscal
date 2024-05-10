@@ -10,7 +10,7 @@ dist/
 
 logs/
 dev/
-config.ini
+settings.ini
 .vscode/
 .pytest_cache
 

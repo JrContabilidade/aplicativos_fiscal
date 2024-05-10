@@ -3,6 +3,7 @@ from PySide6.QtCore import Qt
 from .main_ui import Ui_MainWindow
 from src.desktop.screens.configuracoes import QuestorDB
 from src.desktop.screens.impostos import CompLancFunrural
+from src.desktop.screens.ajuda import Documentacao
 
 
 class Main(QMainWindow):
@@ -20,6 +21,8 @@ class Main(QMainWindow):
             lambda: self.add_sub_window(CompLancFunrural(self))
         )
 
+        self.ui.act_documentacao.triggered.connect(self.show_documentacao)
+
     def add_sub_window(self, widget: QWidget):
 
         for window in self.open_windows:
@@ -32,3 +35,8 @@ class Main(QMainWindow):
         subwindow.destroyed.connect(lambda: self.open_windows.remove(widget))
 
         subwindow.show()
+
+    def show_documentacao(self):
+        doc = Documentacao(self)
+        doc.set_url("http://127.0.0.1:8000/")
+        doc.show()

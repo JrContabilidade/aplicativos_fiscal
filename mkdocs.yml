@@ -1,5 +1,4 @@
 site_name: Aplicativos Fiscais
-locale: pt_BR
 theme:
   name: material
   language: pt-BR

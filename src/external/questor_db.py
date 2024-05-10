@@ -1,14 +1,20 @@
 from firebirdsql import connect
-from src.settings.questor_db import db_settings
+from src.settings import (
+    QUESTOR_DB,
+    QUESTOR_DB_USER,
+    QUESTOR_DB_PASSWORD,
+    QUESTOR_DB_HOST,
+    QUESTOR_DB_PORT,
+)
 
 
 def get_questor_connection():
 
     return connect(
-        database=db_settings.banco,
-        user=db_settings.usuario,
-        password=db_settings.senha,
-        host=db_settings.host,
-        port=db_settings.porta,
+        database=QUESTOR_DB,
+        user=QUESTOR_DB_USER,
+        password=QUESTOR_DB_PASSWORD,
+        host=QUESTOR_DB_HOST,
+        port=QUESTOR_DB_PORT,
         charset="ISO8859_1",
     )

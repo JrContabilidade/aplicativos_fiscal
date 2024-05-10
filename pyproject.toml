@@ -17,6 +17,7 @@ pandas = "^2.2.2"
 pydantic = "^2.7.1"
 validate-docbr = "^1.10.0"
 pyperclip = "^1.8.2"
+python-decouple = "^3.8"
 
 
 [tool.poetry.group.dev.dependencies]

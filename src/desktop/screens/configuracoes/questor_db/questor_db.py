@@ -1,9 +1,15 @@
 from __future__ import annotations
 
+import os
+import sys
+from configparser import ConfigParser
+
+from cryptography.fernet import Fernet
 from PySide6.QtWidgets import QMessageBox, QWidget
 
+from src import settings
+
 from .questor_db_ui import Ui_QuestorDB
-from src.settings.questor_db import db_settings
 
 
 class QuestorDB(QWidget):
@@ -43,16 +49,18 @@ class QuestorDB(QWidget):
         return erros
 
     def _load_config_file(self):
-        try:
-            self.ui.txt_banco.setText(db_settings.banco)
-            self.ui.txt_usuario.setText(db_settings.usuario)
-            self.ui.txt_senha.setText(db_settings.senha)
-            self.ui.txt_host.setText(db_settings.host)
-            self.ui.txt_porta.setValue(int(db_settings.porta))
-        except FileNotFoundError:
-            pass
+
+        fernet = Fernet(settings.SECRET_KEY)
+        senha_decript = fernet.decrypt(settings.QUESTOR_DB_PASSWORD.encode()).decode()
+
+        self.ui.txt_banco.setText(settings.QUESTOR_DB)
+        self.ui.txt_usuario.setText(settings.QUESTOR_DB_HOST)
+        self.ui.txt_senha.setText(senha_decript)
+        self.ui.txt_host.setText(settings.QUESTOR_DB_USER)
+        self.ui.txt_porta.setValue(int(settings.QUESTOR_DB_PORT))
 
     def salvar(self):
+
         erros = self._validate()
 
         if erros:
@@ -60,14 +68,33 @@ class QuestorDB(QWidget):
             QMessageBox.warning(self, "Erros de validação.", message)
             return
 
-        db_settings.banco = self.ui.txt_banco.text()
-        db_settings.usuario = self.ui.txt_usuario.text()
-        db_settings.senha = self.ui.txt_senha.text()
-        db_settings.host = self.ui.txt_host.text()
-        db_settings.porta = self.ui.txt_porta.text()
+        banco = self.ui.txt_banco.text()
+        usuario = self.ui.txt_usuario.text()
+        senha = self.ui.txt_senha.text()
+        host = self.ui.txt_host.text()
+        porta = self.ui.txt_porta.text()
 
-        db_settings.save()
+        fernet = Fernet(settings.SECRET_KEY)
+        senha_cript = fernet.encrypt(senha.encode()).decode()
 
-        QMessageBox.information(self, "Sucesso", "Salvo com sucesso...")
+        config = ConfigParser()
 
-        self.parent().close()
+        with open(settings.CONFIG_FILE, "r") as file:
+            config = ConfigParser()
+            config.read_file(file)
+            config.set("settings", "QUESTOR_DB", banco)
+            config.set("settings", "QUESTOR_DB_USER", usuario)
+            config.set("settings", "QUESTOR_DB_PASSWORD", senha_cript)
+            config.set("settings", "QUESTOR_DB_HOST", host)
+            config.set("settings", "QUESTOR_DB_PORT", porta)
+
+        with open(settings.CONFIG_FILE, "w") as file:
+            config.write(file)
+
+        QMessageBox.information(
+            self,
+            "Sucesso",
+            "O sistema será finalizado e as configurações serão recarregadas na proxima inicialização...",
+        )
+
+        sys.exit()
