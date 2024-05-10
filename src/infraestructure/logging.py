@@ -4,10 +4,6 @@ from src.utils.path import get_exec_dir
 
 
 def make_logs():
-
-    if is_bundle() and not is_debug():
-        logger.remove(0)
-
     log_dir = get_exec_dir() / "logs"
     log_dir.mkdir(parents=True, exist_ok=True)
 
