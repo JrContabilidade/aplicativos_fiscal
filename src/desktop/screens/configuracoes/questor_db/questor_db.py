@@ -1,13 +1,13 @@
 from __future__ import annotations
 
-import os
 import sys
 from configparser import ConfigParser
 
 from PySide6.QtWidgets import QMessageBox, QWidget
+from loguru import logger
 
 from src.settings import settings
-from src.utils.encrypt_decrypt import encrypt
+from src.utils.encrypt_decrypt import encrypt, decrypt
 
 from .questor_db_ui import Ui_QuestorDB
 
@@ -32,25 +32,29 @@ class QuestorDB(QWidget):
         porta = self.ui.txt_porta.text()
 
         if not banco:
-            erros.append('Campo banco é obrigatorio')
+            erros.append("Campo banco é obrigatorio")
 
         if not usuario:
-            erros.append('Campo Usuário é obrigatorio')
+            erros.append("Campo Usuário é obrigatorio")
 
         if not senha:
-            erros.append('Campo Senha é obrigatorio')
+            erros.append("Campo Senha é obrigatorio")
 
         if not host:
-            erros.append('Campo Host é obrigatorio')
+            erros.append("Campo Host é obrigatorio")
 
         if not porta:
-            erros.append('Campo Porta é obrigatorio')
+            erros.append("Campo Porta é obrigatorio")
 
         return erros
 
     def _load_config_file(self):
 
-        senha = settings.QUESTOR_DB_PASSWORD
+        try:
+            senha = decrypt(settings.SECRET_KEY, settings.QUESTOR_DB_PASSWORD)
+        except Exception as err:
+            logger.error("Falha ao decriptografar senha.")
+            senha = ""
 
         self.ui.txt_banco.setText(settings.QUESTOR_DB)
         self.ui.txt_usuario.setText(settings.QUESTOR_DB_HOST)
@@ -63,8 +67,8 @@ class QuestorDB(QWidget):
         erros = self._validate()
 
         if erros:
-            message = '\n'.join(erros)
-            QMessageBox.warning(self, 'Erros de validação.', message)
+            message = "\n".join(erros)
+            QMessageBox.warning(self, "Erros de validação.", message)
             return
 
         banco = self.ui.txt_banco.text()
@@ -77,22 +81,22 @@ class QuestorDB(QWidget):
 
         config = ConfigParser()
 
-        with open(settings.CONFIG_FILE, 'r') as file:
+        with open(settings.CONFIG_FILE, "r") as file:
             config = ConfigParser()
             config.read_file(file)
-            config.set('settings', 'QUESTOR_DB', banco)
-            config.set('settings', 'QUESTOR_DB_USER', usuario)
-            config.set('settings', 'QUESTOR_DB_PASSWORD', senha)
-            config.set('settings', 'QUESTOR_DB_HOST', host)
-            config.set('settings', 'QUESTOR_DB_PORT', porta)
+            config.set("settings", "QUESTOR_DB", banco)
+            config.set("settings", "QUESTOR_DB_USER", usuario)
+            config.set("settings", "QUESTOR_DB_PASSWORD", senha)
+            config.set("settings", "QUESTOR_DB_HOST", host)
+            config.set("settings", "QUESTOR_DB_PORT", porta)
 
-        with open(settings.CONFIG_FILE, 'w') as file:
+        with open(settings.CONFIG_FILE, "w") as file:
             config.write(file)
 
         QMessageBox.information(
             self,
-            'Sucesso',
-            'O sistema será finalizado e as configurações serão recarregadas na proxima inicialização...',
+            "Sucesso",
+            "O sistema será finalizado e as configurações serão recarregadas na proxima inicialização...",
         )
 
         sys.exit()
