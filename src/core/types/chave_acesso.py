@@ -1,11 +1,11 @@
 from datetime import date
+
 from validate_docbr import CNPJ as ValidateCNPJ
 
 from .insc_federal import Cnpj
 
 
 class ChaveAcesso:
-
     def __init__(self, valor: str) -> None:
         """Representa uma chave de acesso
 
@@ -25,18 +25,20 @@ class ChaveAcesso:
         valor_formatado = valor.strip()
 
         if len(valor_formatado) != 44:
-            raise ValueError(f"A Chave {valor} de acesso não possui 44 caracteres.")
+            raise ValueError(
+                f'A Chave {valor} de acesso não possui 44 caracteres.'
+            )
 
         if valor.isnumeric(valor_formatado):
-            raise ValueError(f"Chave {valor} possui valores não numericos.")
+            raise ValueError(f'Chave {valor} possui valores não numericos.')
 
         mes = int(self._valor[2:4])
 
         if mes not in range(1, 13):
-            raise ValueError(f"Chave {valor} possui mês invalido. {mes}")
+            raise ValueError(f'Chave {valor} possui mês invalido. {mes}')
 
         if ValidateCNPJ().validate(self._valor[6:20]):
-            raise ValueError("Valor não corresponde um cnpj valido.")
+            raise ValueError('Valor não corresponde um cnpj valido.')
 
     @property
     def cod_uf(self) -> int:
@@ -101,4 +103,6 @@ class ChaveAcesso:
         if isinstance(value, str):
             return value == chave_str
 
-        raise TypeError(f"Operção inválida para o tipo {type(value)}. Valor: {value}")
+        raise TypeError(
+            f'Operção inválida para o tipo {type(value)}. Valor: {value}'
+        )

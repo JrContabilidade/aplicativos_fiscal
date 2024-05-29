@@ -21,7 +21,6 @@ class Signals(QObject):
 
 
 class Worker(QRunnable):
-
     def __init__(
         self,
         arq_funrural: str,
@@ -52,7 +51,9 @@ class Worker(QRunnable):
 
         comparativo.processar()
         self.signals.finished.emit()
-        self.signals.success.emit(comparativo.chaves_lctos, comparativo.csv_result)
+        self.signals.success.emit(
+            comparativo.chaves_lctos, comparativo.csv_result
+        )
 
 
 class CompLancFunrural(QWidget):
@@ -106,15 +107,15 @@ class CompLancFunrural(QWidget):
         self.ui.txt_chaves_lcto.setReadOnly(False)
 
     def _process_sucess(self, chaves_lcto: list[int], csv_result: str):
-        chaves = ";".join([str(chave) for chave in chaves_lcto])
+        chaves = ';'.join([str(chave) for chave in chaves_lcto])
         self.ui.txt_chaves_lcto.setPlainText(chaves)
 
         file = self.ui.txt_arq_funrural.text()
-        bkp_file = file.replace(".csv", "") + "_bkp.csv"
+        bkp_file = file.replace('.csv', '') + '_bkp.csv'
 
         shutil.copyfile(file, bkp_file)
 
-        with open(file, "w", encoding="latin-1") as file_instance:
+        with open(file, 'w', encoding='latin-1') as file_instance:
             file_instance.write(csv_result)
 
     def copiar_chaves_lcto(self):
@@ -124,7 +125,7 @@ class CompLancFunrural(QWidget):
     def selecionar_arquivo(self):
 
         filename, _ = QFileDialog.getOpenFileName(
-            self, "Selecionar Arquivo CSV", filter="Arquivo CSV (*.csv)"
+            self, 'Selecionar Arquivo CSV', filter='Arquivo CSV (*.csv)'
         )
 
         if filename:
@@ -132,7 +133,7 @@ class CompLancFunrural(QWidget):
 
     def baixar_arquivo_modelo(self):
         save_file, _ = QFileDialog.getSaveFileName(
-            self, "Salvar como...", filter=("Arquivo CSV (*.csv)")
+            self, 'Salvar como...', filter=('Arquivo CSV (*.csv)')
         )
 
         if save_file:
@@ -152,7 +153,9 @@ class CompLancFunrural(QWidget):
         data_inicio = self.ui.txt_data_inicio.date().toPython()
         data_final = self.ui.txt_data_final.date().toPython()
 
-        worker = Worker(arq_funrural, cod_empresa, cod_filial, data_inicio, data_final)
+        worker = Worker(
+            arq_funrural, cod_empresa, cod_filial, data_inicio, data_final
+        )
 
         worker.signals.started.connect(self._process_started)
         worker.signals.success.connect(self._process_sucess)

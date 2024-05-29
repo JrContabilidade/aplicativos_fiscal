@@ -32,19 +32,19 @@ class QuestorDB(QWidget):
         porta = self.ui.txt_porta.text()
 
         if not banco:
-            erros.append("Campo banco é obrigatorio")
+            erros.append('Campo banco é obrigatorio')
 
         if not usuario:
-            erros.append("Campo Usuário é obrigatorio")
+            erros.append('Campo Usuário é obrigatorio')
 
         if not senha:
-            erros.append("Campo Senha é obrigatorio")
+            erros.append('Campo Senha é obrigatorio')
 
         if not host:
-            erros.append("Campo Host é obrigatorio")
+            erros.append('Campo Host é obrigatorio')
 
         if not porta:
-            erros.append("Campo Porta é obrigatorio")
+            erros.append('Campo Porta é obrigatorio')
 
         return erros
 
@@ -63,8 +63,8 @@ class QuestorDB(QWidget):
         erros = self._validate()
 
         if erros:
-            message = "\n".join(erros)
-            QMessageBox.warning(self, "Erros de validação.", message)
+            message = '\n'.join(erros)
+            QMessageBox.warning(self, 'Erros de validação.', message)
             return
 
         banco = self.ui.txt_banco.text()
@@ -77,22 +77,22 @@ class QuestorDB(QWidget):
 
         config = ConfigParser()
 
-        with open(settings.CONFIG_FILE, "r") as file:
+        with open(settings.CONFIG_FILE, 'r') as file:
             config = ConfigParser()
             config.read_file(file)
-            config.set("settings", "QUESTOR_DB", banco)
-            config.set("settings", "QUESTOR_DB_USER", usuario)
-            config.set("settings", "QUESTOR_DB_PASSWORD", senha)
-            config.set("settings", "QUESTOR_DB_HOST", host)
-            config.set("settings", "QUESTOR_DB_PORT", porta)
+            config.set('settings', 'QUESTOR_DB', banco)
+            config.set('settings', 'QUESTOR_DB_USER', usuario)
+            config.set('settings', 'QUESTOR_DB_PASSWORD', senha)
+            config.set('settings', 'QUESTOR_DB_HOST', host)
+            config.set('settings', 'QUESTOR_DB_PORT', porta)
 
-        with open(settings.CONFIG_FILE, "w") as file:
+        with open(settings.CONFIG_FILE, 'w') as file:
             config.write(file)
 
         QMessageBox.information(
             self,
-            "Sucesso",
-            "O sistema será finalizado e as configurações serão recarregadas na proxima inicialização...",
+            'Sucesso',
+            'O sistema será finalizado e as configurações serão recarregadas na proxima inicialização...',
         )
 
         sys.exit()

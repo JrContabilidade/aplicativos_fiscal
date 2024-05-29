@@ -25,7 +25,11 @@ pre-commit = "^3.7.0"
 pytest = "^8.2.0"
 pylint = "^3.1.0"
 taskipy = "^1.12.2"
+isort = "^5.13.2"
+blue = "^0.9.1"
 
+[tool.pytest.ini_options]
+addopts = ["--doctest-modules", "-vv", "-x"]
 
 [tool.poetry.group.docs.dependencies]
 mkdocs = { extras = ["i18n"], version = "^1.6.0" }
@@ -36,5 +40,6 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.taskipy.tasks]
-test = "pytest -vv -x"
+test = "pytest --pyargs src/core"
 docs = "mkdocs serve"
+format = "isort src && blue src"

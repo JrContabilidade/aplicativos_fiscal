@@ -1,9 +1,11 @@
-from PySide6.QtWidgets import QMainWindow, QWidget
 from PySide6.QtCore import Qt
-from .main_ui import Ui_MainWindow
+from PySide6.QtWidgets import QMainWindow, QWidget
+
+from src.desktop.screens.ajuda import Documentacao
 from src.desktop.screens.configuracoes import QuestorDB
 from src.desktop.screens.impostos import CompLancFunrural
-from src.desktop.screens.ajuda import Documentacao
+
+from .main_ui import Ui_MainWindow
 
 
 class Main(QMainWindow):
@@ -38,5 +40,5 @@ class Main(QMainWindow):
 
     def show_documentacao(self):
         doc = Documentacao(self)
-        doc.set_url("http://127.0.0.1:8000/")
+        doc.set_url('http://127.0.0.1:8000/')
         doc.show()

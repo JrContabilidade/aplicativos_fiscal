@@ -2,12 +2,11 @@ import re
 
 
 class OutraInscFederal:
-
     def __init__(self, valor: str) -> None:
         self._valor = valor
 
     def _formatar(self, valor: str):
-        valor_formatado = re.sub("[^0-9]", "", valor)
+        valor_formatado = re.sub('[^0-9]', '', valor)
 
         return valor_formatado
 

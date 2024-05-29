@@ -1,5 +1,6 @@
 from datetime import date
 from decimal import Decimal
+
 from pydantic import dataclasses
 
 from src.external import get_questor_connection

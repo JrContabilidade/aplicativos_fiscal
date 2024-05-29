@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 import csv
 from typing import TypeVar
 
@@ -9,7 +10,7 @@ T = TypeVar("T")
 
 
 @dataclasses.dataclass
-class _RegistroError:
+class T_RegistroError:
     columns: list[int]
     msgs: list[str]
 
@@ -21,11 +22,11 @@ class _RegistroError:
 
 
 @dataclasses.dataclass
-class _Registro[T]:
+class T_Registro[T]:
     num_linha: int
     linha: str
     registro: T | None = None
-    error: _RegistroError | None = None
+    error: T_RegistroError | None = None
 
 
 class PydanticCsv[T]:
@@ -40,9 +41,9 @@ class PydanticCsv[T]:
     def _make_registro_error(self, err: ValidationError):
         invalidas = [int(error["loc"][0]) for error in err.errors()]
         msgs = [error["msg"] for error in err.errors()]
-        return _RegistroError(invalidas, msgs)
+        return T_RegistroError(invalidas, msgs)
 
-    def load_csv(self, file_path: str) -> list[_Registro[T]]:
+    def load_csv(self, file_path: str) -> list[T_Registro[T]]:
 
         registros = []
 
@@ -60,12 +61,12 @@ class PydanticCsv[T]:
 
                 try:
                     r = self._model(*values)
-                    registro = _Registro(num_linha=num_linha, linha=linha, registro=r)
+                    registro = T_Registro(num_linha=num_linha, linha=linha, registro=r)
                     registros.append(registro)
                 except ValidationError as err:
                     error = self._make_registro_error(err)
                     logger.warning("Erros: {}", error.detail)
-                    registro = _Registro(num_linha=num_linha, linha=linha, error=error)
+                    registro = T_Registro(num_linha=num_linha, linha=linha, error=error)
                     registros.append(registro)
 
         return registros

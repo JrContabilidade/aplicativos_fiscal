@@ -8,44 +8,81 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
-    QCursor, QFont, QFontDatabase, QGradient,
-    QIcon, QImage, QKeySequence, QLinearGradient,
-    QPainter, QPalette, QPixmap, QRadialGradient,
-    QTransform)
-from PySide6.QtWidgets import (QApplication, QHBoxLayout, QMainWindow, QMdiArea,
-    QMenu, QMenuBar, QSizePolicy, QStatusBar,
-    QWidget)
+from PySide6.QtCore import (
+    QCoreApplication,
+    QDate,
+    QDateTime,
+    QLocale,
+    QMetaObject,
+    QObject,
+    QPoint,
+    QRect,
+    QSize,
+    Qt,
+    QTime,
+    QUrl,
+)
+from PySide6.QtGui import (
+    QAction,
+    QBrush,
+    QColor,
+    QConicalGradient,
+    QCursor,
+    QFont,
+    QFontDatabase,
+    QGradient,
+    QIcon,
+    QImage,
+    QKeySequence,
+    QLinearGradient,
+    QPainter,
+    QPalette,
+    QPixmap,
+    QRadialGradient,
+    QTransform,
+)
+from PySide6.QtWidgets import (
+    QApplication,
+    QHBoxLayout,
+    QMainWindow,
+    QMdiArea,
+    QMenu,
+    QMenuBar,
+    QSizePolicy,
+    QStatusBar,
+    QWidget,
+)
+
 import resources_rc
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
-            MainWindow.setObjectName(u"MainWindow")
+            MainWindow.setObjectName('MainWindow')
         MainWindow.resize(837, 744)
         icon = QIcon()
-        icon.addFile(u":/icons/resources/jr.ico", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(
+            ':/icons/resources/jr.ico', QSize(), QIcon.Normal, QIcon.Off
+        )
         MainWindow.setWindowIcon(icon)
-        MainWindow.setStyleSheet(u"")
+        MainWindow.setStyleSheet('')
         self.act_banco_questor = QAction(MainWindow)
-        self.act_banco_questor.setObjectName(u"act_banco_questor")
+        self.act_banco_questor.setObjectName('act_banco_questor')
         self.act_comp_lanc_funrural = QAction(MainWindow)
-        self.act_comp_lanc_funrural.setObjectName(u"act_comp_lanc_funrural")
+        self.act_comp_lanc_funrural.setObjectName('act_comp_lanc_funrural')
         self.act_documentacao = QAction(MainWindow)
-        self.act_documentacao.setObjectName(u"act_documentacao")
+        self.act_documentacao.setObjectName('act_documentacao')
         self.centralwidget = QWidget(MainWindow)
-        self.centralwidget.setObjectName(u"centralwidget")
-        self.centralwidget.setStyleSheet(u"")
+        self.centralwidget.setObjectName('centralwidget')
+        self.centralwidget.setStyleSheet('')
         self.horizontalLayout = QHBoxLayout(self.centralwidget)
         self.horizontalLayout.setSpacing(0)
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.horizontalLayout.setObjectName('horizontalLayout')
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.mdi_area = QMdiArea(self.centralwidget)
-        self.mdi_area.setObjectName(u"mdi_area")
-        self.mdi_area.setStyleSheet(u"")
+        self.mdi_area.setObjectName('mdi_area')
+        self.mdi_area.setStyleSheet('')
         brush = QBrush(QColor(159, 159, 159, 255))
         brush.setStyle(Qt.NoBrush)
         self.mdi_area.setBackground(brush)
@@ -54,17 +91,17 @@ class Ui_MainWindow(object):
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
-        self.menubar.setObjectName(u"menubar")
+        self.menubar.setObjectName('menubar')
         self.menubar.setGeometry(QRect(0, 0, 837, 22))
         self.menuImpostos = QMenu(self.menubar)
-        self.menuImpostos.setObjectName(u"menuImpostos")
+        self.menuImpostos.setObjectName('menuImpostos')
         self.menuAjuda = QMenu(self.menubar)
-        self.menuAjuda.setObjectName(u"menuAjuda")
+        self.menuAjuda.setObjectName('menuAjuda')
         self.mnu_configuracoes = QMenu(self.menubar)
-        self.mnu_configuracoes.setObjectName(u"mnu_configuracoes")
+        self.mnu_configuracoes.setObjectName('mnu_configuracoes')
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
-        self.statusbar.setObjectName(u"statusbar")
+        self.statusbar.setObjectName('statusbar')
         MainWindow.setStatusBar(self.statusbar)
 
         self.menubar.addAction(self.mnu_configuracoes.menuAction())
@@ -77,15 +114,38 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
 
         QMetaObject.connectSlotsByName(MainWindow)
+
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Aplicativos Setor Fiscal", None))
-        self.act_banco_questor.setText(QCoreApplication.translate("MainWindow", u"Banco Questor", None))
-        self.act_comp_lanc_funrural.setText(QCoreApplication.translate("MainWindow", u"Comparar Lan\u00e7amentos Funrural", None))
-        self.act_documentacao.setText(QCoreApplication.translate("MainWindow", u"Documenta\u00e7\u00e3o", None))
-        self.menuImpostos.setTitle(QCoreApplication.translate("MainWindow", u"Impostos", None))
-        self.menuAjuda.setTitle(QCoreApplication.translate("MainWindow", u"Ajuda", None))
-        self.mnu_configuracoes.setTitle(QCoreApplication.translate("MainWindow", u"Configura\u00e7\u00f5es", None))
-    # retranslateUi
+        MainWindow.setWindowTitle(
+            QCoreApplication.translate(
+                'MainWindow', 'Aplicativos Setor Fiscal', None
+            )
+        )
+        self.act_banco_questor.setText(
+            QCoreApplication.translate('MainWindow', 'Banco Questor', None)
+        )
+        self.act_comp_lanc_funrural.setText(
+            QCoreApplication.translate(
+                'MainWindow', 'Comparar Lan\u00e7amentos Funrural', None
+            )
+        )
+        self.act_documentacao.setText(
+            QCoreApplication.translate(
+                'MainWindow', 'Documenta\u00e7\u00e3o', None
+            )
+        )
+        self.menuImpostos.setTitle(
+            QCoreApplication.translate('MainWindow', 'Impostos', None)
+        )
+        self.menuAjuda.setTitle(
+            QCoreApplication.translate('MainWindow', 'Ajuda', None)
+        )
+        self.mnu_configuracoes.setTitle(
+            QCoreApplication.translate(
+                'MainWindow', 'Configura\u00e7\u00f5es', None
+            )
+        )
 
+    # retranslateUi

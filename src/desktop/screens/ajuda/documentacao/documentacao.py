@@ -1,6 +1,6 @@
-from PySide6.QtWidgets import QMainWindow
+from PySide6.QtCore import Qt, QUrl
 from PySide6.QtWebEngineWidgets import QWebEngineView
-from PySide6.QtCore import QUrl, Qt
+from PySide6.QtWidgets import QMainWindow
 
 
 class Documentacao(QMainWindow):
@@ -8,7 +8,7 @@ class Documentacao(QMainWindow):
         super().__init__(parent)
         self.resize(1366, 768)
         self.setWindowState(Qt.WindowState.WindowMaximized)
-        self.setWindowTitle("Documentação")
+        self.setWindowTitle('Documentação')
         self.web_view = QWebEngineView(self)
         self.setCentralWidget(self.web_view)
 

@@ -23,10 +23,10 @@ class Cpf:
     def _validar(self, valor: str):
         validate = ValidateCPF()
         if not validate.validate(valor):
-            raise ValueError("Valor não corresponde um cpf valido.")
+            raise ValueError('Valor não corresponde um cpf valido.')
 
     def _formatar(self, valor: str):
-        valor_formatado = re.sub("[^0-9]", "", valor)
+        valor_formatado = re.sub('[^0-9]', '', valor)
         valor_formatado = valor_formatado.zfill(11)
 
         return valor_formatado
