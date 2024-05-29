@@ -4,10 +4,10 @@ import os
 import sys
 from configparser import ConfigParser
 
-from cryptography.fernet import Fernet
 from PySide6.QtWidgets import QMessageBox, QWidget
 
-from src import settings
+from src.settings import settings
+from src.utils.encrypt_decrypt import encrypt
 
 from .questor_db_ui import Ui_QuestorDB
 
@@ -50,12 +50,11 @@ class QuestorDB(QWidget):
 
     def _load_config_file(self):
 
-        fernet = Fernet(settings.SECRET_KEY)
-        senha_decript = fernet.decrypt(settings.QUESTOR_DB_PASSWORD.encode()).decode()
+        senha = settings.QUESTOR_DB_PASSWORD
 
         self.ui.txt_banco.setText(settings.QUESTOR_DB)
         self.ui.txt_usuario.setText(settings.QUESTOR_DB_HOST)
-        self.ui.txt_senha.setText(senha_decript)
+        self.ui.txt_senha.setText(senha)
         self.ui.txt_host.setText(settings.QUESTOR_DB_USER)
         self.ui.txt_porta.setValue(int(settings.QUESTOR_DB_PORT))
 
@@ -74,8 +73,7 @@ class QuestorDB(QWidget):
         host = self.ui.txt_host.text()
         porta = self.ui.txt_porta.text()
 
-        fernet = Fernet(settings.SECRET_KEY)
-        senha_cript = fernet.encrypt(senha.encode()).decode()
+        senha = encrypt(settings.SECRET_KEY, senha)
 
         config = ConfigParser()
 
@@ -84,7 +82,7 @@ class QuestorDB(QWidget):
             config.read_file(file)
             config.set("settings", "QUESTOR_DB", banco)
             config.set("settings", "QUESTOR_DB_USER", usuario)
-            config.set("settings", "QUESTOR_DB_PASSWORD", senha_cript)
+            config.set("settings", "QUESTOR_DB_PASSWORD", senha)
             config.set("settings", "QUESTOR_DB_HOST", host)
             config.set("settings", "QUESTOR_DB_PORT", porta)
 

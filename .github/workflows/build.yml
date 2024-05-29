@@ -1,7 +1,9 @@
 name: Build Workflow
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 env:
   name: aplicativos_fiscal
@@ -16,12 +18,13 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: "pip"
       - name: Install requeriments
         run: |
           pip install -r requirements.txt
       - name: Run Pyinstaller
         run: |
-          pyinstaller ${{ env.name }}.spec
+          set PYTHONOPTIMIZE=2 && pyinstaller ${{ env.name }}.spec
       - name: Rename Settings file
         run: |
           mv settings_exemple.ini settings.ini
@@ -31,3 +34,4 @@ jobs:
           name: ${{ env.name }}
           path: |
             dist/${{ env.name }}
+            dist/${{ env.name }}/settings.ini

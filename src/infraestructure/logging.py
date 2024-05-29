@@ -1,10 +1,9 @@
 from loguru import logger
-from src.utils.checks import is_bundle, is_debug
-from src.utils.path import get_exec_dir
+from src.settings import settings
 
 
 def make_logs():
-    log_dir = get_exec_dir() / "logs"
+    log_dir = settings.ROOT_PATH / "logs"
     log_dir.mkdir(parents=True, exist_ok=True)
 
     logger.add(log_dir / "debug.log", level="DEBUG")
